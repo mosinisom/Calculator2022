@@ -3,39 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Calculator2022.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <Grid Padding="16" RowSpacing="2" ColumnSpacing="2"
+          RowDefinitions="2*,*,*,*,*,*"
+          ColumnDefinitions="*,*,*,*">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+        <Label x:Name="scr"
+               FontSize="64" FontAttributes="Bold" Text="0"
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="End"
+               LineBreakMode="NoWrap" Grid.ColumnSpan="4" />
 
-            <Label
-                Text="Hello, World!"
-                x:Name="lblScreen"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+        <BoxView BackgroundColor="{StaticResource LightGray}" HeightRequest="1"
+                 Grid.Row="0" VerticalOptions="End"
+                 Grid.ColumnSpan="4"
+                 />
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+        <Button Text="C" Grid.Row="1" Grid.Column="0"
+               Clicked="OnClick" />
+        <Button Text="+/-" Grid.Row="1" Grid.Column="1"
+               Clicked="OnClick" />
+        <Button Text="B" Grid.Row="1" Grid.Column="2"
+                Clicked="OnClick" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Clear"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+        <Button Text="7" Grid.Row="2" Grid.Column="0"
+               Clicked="OnClick" />
+        <Button Text="8" Grid.Row="2" Grid.Column="1"
+               Clicked="OnClick" />
+        <Button Text="9" Grid.Row="2" Grid.Column="2"
+               Clicked="OnClick" />
 
-        </VerticalStackLayout>
-    </ScrollView>
+        <Button Text="4" Grid.Row="3" Grid.Column="0"
+              Clicked="OnClick" />
+        <Button Text="5" Grid.Row="3" Grid.Column="1"
+              Clicked="OnClick" />
+        <Button Text="6" Grid.Row="3" Grid.Column="2"
+              Clicked="OnClick" />
+
+        <Button Text="1" Grid.Row="4" Grid.Column="0"
+              Clicked="OnClick" />
+        <Button Text="2" Grid.Row="4" Grid.Column="1"
+              Clicked="OnClick" />
+        <Button Text="3" Grid.Row="4" Grid.Column="2"
+              Clicked="OnClick" />
+
+        
+        <Button Text="0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"  
+              Clicked="OnClick" />
+        <Button Text="," Grid.Row="5" Grid.Column="2" 
+              Clicked="OnClick" />
+
+        <Button Text="÷" Grid.Row="1" Grid.Column="3"
+               Clicked="OnClick" />
+        <Button Text="×" Grid.Row="2" Grid.Column="3"
+               Clicked="OnClick" />
+        <Button Text="-" Grid.Row="3" Grid.Column="3"
+               Clicked="OnClick" />
+        <Button Text="+" Grid.Row="4" Grid.Column="3"
+               Clicked="OnClick" />
+
+
+        <Button Text="=" Grid.Row="5" Grid.Column="3" 
+               Clicked="OnClick" />
+
+    </Grid>
 
 </ContentPage>

@@ -75,22 +75,22 @@ public class Calculator
                 }
             }
         }
-        else if (key == ".")
+        else if (key == ",")
         {
             if (_state == RESULT)
             {
-                _screen = "0.";
+                _screen = "0,";
                 _state = INPUT1;
             }
             else if (_state == OPERATION)
             {
-                _screen = "0.";
+                _screen = "0,";
                 _state = INPUT2;
             }
             else if (_state == INPUT1 || _state == INPUT2)
             {
-                if (!_screen.Contains('.'))
-                    _screen += ".";
+                if (!_screen.Contains(','))
+                    _screen += ",";
             }
         }
         else if (key == "+")
@@ -145,55 +145,55 @@ public class Calculator
                 _state = OPERATION;
             }
         }
-        else if (key == "*")
+        else if (key == "×")
         {
             if(_state == INPUT1)
             {
                 _memory = _screen;
-                _op = "*";
+                _op = "×";
                 _state = OPERATION;
             }
             else if (_state == INPUT2)
             {
                 _screen = Calculate(_memory, _op, _screen);
                 _memory = _screen;
-                _op = "*";
+                _op = "×";
                 _state = OPERATION;
             }
             else if (_state == OPERATION)
             {
-                _op = "*";
+                _op = "×";
             }
             else if (_state == RESULT)
             {
                 _memory = _screen;
-                _op = "*";
+                _op = "×";
                 _state = OPERATION;
             }
         }
-        else if (key == "/")
+        else if (key == "÷")
         {
             if (_state == INPUT1)
             {
                 _memory = _screen;
-                _op = "/";
+                _op = "÷";
                 _state = OPERATION;
             }
             else if (_state == INPUT2)
             {
                 _screen = Calculate(_memory, _op, _screen);
                 _memory = _screen;
-                _op = "/";
+                _op = "÷";
                 _state = OPERATION;
             }
             else if (_state == OPERATION)
             {
-                _op = "/";
+                _op = "÷";
             }
             else if (_state == RESULT)
             {
                 _memory = _screen;
-                _op = "/";
+                _op = "÷";
                 _state = OPERATION;
             }
         }
@@ -204,12 +204,12 @@ public class Calculator
                 _screen = key;   
                 _state = INPUT2;
             }
-            if (_state == RESULT)
+            else if (_state == RESULT)
             {
                 _screen = key;
                 _state = INPUT1;
             }
-            if (_screen == "0")
+            else if (_screen == "0")
                 _screen = key;
             else
                 _screen += key;
@@ -228,10 +228,10 @@ public class Calculator
             case "-":
                 r = m - s;
                 break;
-            case "*":
+            case "×":
                 r = m * s;
                 break;
-            case "/":
+            case "÷":
                 if (s == 0)
                 {
                     _state = ERROR;
@@ -240,7 +240,7 @@ public class Calculator
                 r = m / s;
                 break;
         }
-        return r.ToString();
+            return r.ToString("0.##########").TrimEnd('0').TrimEnd(',');
     }
     }
 }
