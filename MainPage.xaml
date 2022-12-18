@@ -20,7 +20,7 @@
 
         <Button Text="C" Grid.Row="1" Grid.Column="0"
                Clicked="OnClick" />
-        <Button Text="+/-" Grid.Row="1" Grid.Column="1"
+        <Button Text="-/+" Grid.Row="1" Grid.Column="1"
                Clicked="OnClick" />
         <Button Text="B" Grid.Row="1" Grid.Column="2"
                 Clicked="OnClick" />
@@ -49,12 +49,12 @@
         
         <Button Text="0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"  
               Clicked="OnClick" />
-        <Button Text="," Grid.Row="5" Grid.Column="2" 
+        <Button Text="." Grid.Row="5" Grid.Column="2" 
               Clicked="OnClick" />
 
-        <Button Text="÷" Grid.Row="1" Grid.Column="3"
+        <Button Text="/" Grid.Row="1" Grid.Column="3"
                Clicked="OnClick" />
-        <Button Text="×" Grid.Row="2" Grid.Column="3"
+        <Button Text="*" Grid.Row="2" Grid.Column="3"
                Clicked="OnClick" />
         <Button Text="-" Grid.Row="3" Grid.Column="3"
                Clicked="OnClick" />
