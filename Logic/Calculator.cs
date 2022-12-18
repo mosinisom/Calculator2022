@@ -8,7 +8,7 @@ public class Calculator
     string _screen; //экран калькулятора
     string _memory;
     string _op;
-    string temp; // попытка сделать нормальные операции
+    string temp;
     CalcState _state;
 
     //публичные методы
@@ -258,9 +258,15 @@ public class Calculator
 
     string Back(string num)
     {
+        string res = num.Substring(0, num.Length - 1);
         if (num.Length == 1)
             return "0";
-        return num.Substring(0, num.Length - 1);
+        else if (num.Length == 2 && num.StartsWith("-"))
+            return "0";
+        else if (res.EndsWith("."))
+            return res.Substring(0, res.Length - 1);
+        else
+            return res;
     }
 
     private void Clear()
@@ -304,221 +310,6 @@ public class Calculator
                 return CalcKey.Undefined;
         }
     }
-
-    /*
-   //"нажатие" на кнопку
-   public void Press (string key)
-   {
-       if (key == Clear)
-       {
-           _screen = "0";
-           _state = CalcState.Input1;
-       }
-       else if (key == BackSpace)
-       {
-           if (_screen.Length > 1)
-               _screen = _screen.Substring(0, _screen.Length - 1);
-           else
-               _screen = "0";
-       }
-       else if (key == "=")
-       {
-           if (_state == CalcState.Input2)
-           {
-               _screen = Calculate(_memory, _op, _screen);
-               _state = CalcState.Result;
-           }
-           else if (_state == CalcState.Result)
-           {
-               _screen = Calculate(_screen, _op, _screen);
-           }
-       }
-       else if (key == "+/-")
-       {
-           if (_state == CalcState.Operation)
-           {
-              // ничего не делаем
-           }
-           else if (_state == CalcState.Input2 || _state == CalcState.Result || _state == CalcState.Input1)
-           {
-               if (_screen != "0")
-               {
-                   if (_screen[0] == '-')
-                       _screen = _screen[1..];
-                   else
-                       _screen = "-" + _screen;
-               }
-           }
-       }
-       else if (key == ",")
-       {
-           if (_state == CalcState.Result)
-           {
-               _screen = "0,";
-               _state = CalcState.Input1;
-           }
-           else if (_state == CalcState.Operation)
-           {
-               _screen = "0,";
-               _state = CalcState.Input2;
-           }
-           else if (_state == CalcState.Input1 || _state == CalcState.Input2)
-           {
-               if (!_screen.Contains(','))
-                   _screen += ",";
-           }
-       }
-       else if (key == "+")
-       {
-           if (_state == CalcState.Input1)
-           {
-               _memory = _screen;
-               _op = "+";
-               _state = CalcState.Operation;
-           }
-           else if (_state == CalcState.Input2)
-           {
-               _screen = Calculate(_memory, _op, _screen);
-               _memory = _screen;
-               _op = "+";
-               _state = CalcState.Operation;
-           }
-           else if (_state == CalcState.Operation)
-           {
-               _op = "+";
-           }
-           else if (_state == CalcState.Result)
-           {
-               _memory = _screen;
-               _op = "+";
-               _state = CalcState.Operation;
-           }
-       }
-       else if (key == "-")
-       {
-           if (_state == CalcState.Input1)
-           {
-               _memory = _screen;
-               _op = "-";
-               _state = CalcState.Operation;
-           }
-           else if (_state == CalcState.Input2)
-           {
-               _screen = Calculate(_memory, _op, _screen);
-               _memory = _screen;
-               _op = "-";
-               _state = CalcState.Operation;
-           }
-           else if (_state == CalcState.Operation)
-           {
-               _op = "-";
-           }
-           else if (_state == CalcState.Result)
-           {
-               _memory = _screen;
-               _op = "-";
-               _state = CalcState.Operation;
-           }
-       }
-       else if (key == "×")
-       {
-           if(_state == CalcState.Input1)
-           {
-               _memory = _screen;
-               _op = "×";
-               _state = CalcState.Operation;
-           }
-           else if (_state == CalcState.Input2)
-           {
-               _screen = Calculate(_memory, _op, _screen);
-               _memory = _screen;
-               _op = "×";
-               _state = CalcState.Operation;
-           }
-           else if (_state == CalcState.Operation)
-           {
-               _op = "×";
-           }
-           else if (_state == CalcState.Result)
-           {
-               _memory = _screen;
-               _op = "×";
-               _state = CalcState.Operation;
-           }
-       }
-       else if (key == "÷")
-       {
-           if (_state == CalcState.Input1)
-           {
-               _memory = _screen;
-               _op = "÷";
-               _state = CalcState.Operation;
-           }
-           else if (_state == CalcState.Input2)
-           {
-               _screen = Calculate(_memory, _op, _screen);
-               _memory = _screen;
-               _op = "÷";
-               _state = CalcState.Operation;
-           }
-           else if (_state == CalcState.Operation)
-           {
-               _op = "÷";
-           }
-           else if (_state == CalcState.Result)
-           {
-               _memory = _screen;
-               _op = "÷";
-               _state = CalcState.Operation;
-           }
-       }
-       else
-       {
-           if (_state == CalcState.Operation)
-           {
-               _screen = key;   
-               _state = CalcState.Input2;
-           }
-           else if (_state == CalcState.Result)
-           {
-               _screen = key;
-               _state = CalcState.Input1;
-           }
-           else if (_screen == "0")
-               _screen = key;
-           else
-               _screen += key;
-       }
-
-   string Calculate(string mem, string op, string scr)
-   {
-       double m = double.Parse(mem);
-       double s = double.Parse(scr);
-       double r = 0;
-       switch(op)
-       {
-           case "+":
-               r = m + s;
-               break;
-           case "-":
-               r = m - s;
-               break;
-           case "×":
-               r = m * s;
-               break;
-           case "÷":
-               if (s == 0)
-               {
-                   _state = CalcState.Error;
-                   return "Error";
-               }
-               r = m / s;
-               break;
-       }
-           return r.ToString("0.##########").TrimEnd('0').TrimEnd(',');
-   }
-   }
-*/
 }
 
 enum CalcState
